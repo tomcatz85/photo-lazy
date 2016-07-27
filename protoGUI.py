@@ -1,7 +1,7 @@
 __author__ = 'tomcat'
 import sys
 from PyQt5.QtWidgets import (QWidget, QLabel,
-    QLineEdit, QAction, QMenuBar, QMessageBox, qApp, QPushButton, QStatusBar, QGridLayout, QApplication)
+    QLineEdit, QAction, QMenuBar, QMessageBox, qApp, QPushButton, QStatusBar, QGridLayout, QFileDialog, QApplication)
 from PyQt5.QtGui import QIcon
 
 class Main(QWidget):
@@ -16,6 +16,7 @@ class Main(QWidget):
        self.statusBar = QStatusBar()
 
        self.OpenButton = QPushButton('Open Folder')
+       self.OpenButton.clicked.connect(self.OpenFolder)
 
        grid = QGridLayout()
        grid.setSpacing(10)
@@ -34,6 +35,8 @@ class Main(QWidget):
        self.setGeometry(500, 500, 500, 500)
        self.setWindowTitle('protoGUI')
        self.show()
+    def OpenFolder(self):
+       fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
 
 if __name__ == '__main__':
 
