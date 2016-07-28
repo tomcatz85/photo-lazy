@@ -15,6 +15,7 @@ class Main(QWidget):
 
 
     def initUI(self):
+
        self.OpenButton = QPushButton('Open Folder')
        self.OpenButton.clicked.connect(self.OpenFolder)
 
@@ -44,7 +45,8 @@ class Main(QWidget):
        self.show()
 
     def OpenFolder(self):
-       self.fname = QFileDialog.getExistingDirectory(self, 'Select Folder', '/home/tomcat/PycharmProjects/photo-lazy')
+       home = os.getenv('HOME')
+       self.fname = QFileDialog.getExistingDirectory(self, 'Select Folder', home)
 
     def PreConvert(self):
         if self.CheckBoxInst.isChecked():
@@ -58,13 +60,14 @@ class Main(QWidget):
     def ConvertInst(self):
         width = 612
         height = 612
-        Prefix = 'Inst_'
-        if not os.path.exists(Prefix):
-            os.mkdir(Prefix, mode=0o755)
+        prefix = 'Inst_'
+        print(self.fname)
+        if not os.path.exists(os.path.join(self.fname, prefix)):
+            os.mkdir(os.path.join(self.fname, prefix), mode=0o755)
         for self.fname in glob.glob('*.jpg'):
             with Image(filename=self.fname) as original:
                 original.transform(resize="%dx%d>" % (width, height))
-                os.chdir(Prefix)
+                os.chdir(os.path.join(self.fname, prefix))
                 original.save(filename=self.fname)
                 os.chdir('..')
 
