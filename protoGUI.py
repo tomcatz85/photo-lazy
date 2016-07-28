@@ -61,6 +61,7 @@ class Main(QWidget):
         width = 612
         height = 612
         prefix = 'Inst_'
+<<<<<<< HEAD
         os.chdir(self.fname)
         if not os.path.exists(prefix):
             os.mkdir(prefix, mode=0o755)
@@ -69,6 +70,16 @@ class Main(QWidget):
                 original.transform(resize="%dx%d>" % (width, height))
                 os.chdir(prefix)
                 original.save(filename=image)
+=======
+        print(self.fname)
+        if not os.path.exists(os.path.join(self.fname, prefix)):
+            os.mkdir(os.path.join(self.fname, prefix), mode=0o755)
+        for self.fname in glob.glob('*.jpg'):
+            with Image(filename=self.fname) as original:
+                original.transform(resize="%dx%d>" % (width, height))
+                os.chdir(os.path.join(self.fname, prefix))
+                original.save(filename=self.fname)
+>>>>>>> master
                 os.chdir('..')
 
     def ConvertVK(self):
