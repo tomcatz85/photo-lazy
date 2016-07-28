@@ -1,7 +1,7 @@
 __author__ = 'tomcat'
 import sys
 from PyQt5.QtWidgets import (QWidget, QLabel,
-    QLineEdit, QAction, QMenuBar, QMessageBox, QPushButton, QStatusBar, QFileDialog, QCheckBox, QHBoxLayout, QVBoxLayout, QMainWindow, QApplication)
+    QLineEdit, QAction, QMenuBar, QMessageBox, QPushButton, QStatusBar, QFileDialog, QCheckBox, QHBoxLayout, QVBoxLayout, QMainWindow, QProgressBar, QApplication)
 from wand.image import Image
 import os
 import glob
@@ -25,8 +25,11 @@ class Main(QWidget):
        self.CheckBoxInst = QCheckBox('Instagram', self)
        self.CheckBoxVK = QCheckBox('VK.com', self)
 
+       self.progressBar = QProgressBar(self)
+       self.progressBar.setRange(0, 1)
        self.statusBar = QStatusBar(self)
-       self.statusBar.showMessage('Ready')
+       self.statusBar.addWidget(self.progressBar)
+       #self.statusBar.showMessage('Ready')
 
        HBox = QHBoxLayout()
        HBox.addWidget(self.OpenButton)
@@ -36,7 +39,6 @@ class Main(QWidget):
        VBox = QVBoxLayout()
        VBox.addLayout(HBox)
        VBox.addWidget(self.ConvertButton)
-#       VBox.addWidget(self.statusBar)
 
        self.setLayout(VBox)
 
@@ -61,7 +63,6 @@ class Main(QWidget):
         width = 612
         height = 612
         prefix = 'Inst_'
-<<<<<<< HEAD
         os.chdir(self.fname)
         if not os.path.exists(prefix):
             os.mkdir(prefix, mode=0o755)
@@ -70,16 +71,6 @@ class Main(QWidget):
                 original.transform(resize="%dx%d>" % (width, height))
                 os.chdir(prefix)
                 original.save(filename=image)
-=======
-        print(self.fname)
-        if not os.path.exists(os.path.join(self.fname, prefix)):
-            os.mkdir(os.path.join(self.fname, prefix), mode=0o755)
-        for self.fname in glob.glob('*.jpg'):
-            with Image(filename=self.fname) as original:
-                original.transform(resize="%dx%d>" % (width, height))
-                os.chdir(os.path.join(self.fname, prefix))
-                original.save(filename=self.fname)
->>>>>>> master
                 os.chdir('..')
 
     def ConvertVK(self):
@@ -96,6 +87,10 @@ class Main(QWidget):
                 os.chdir(prefix)
                 original.save(filename=image)
                 os.chdir('..')
+
+    def onStart(self):
+        self.progressBar.setRange(0, 0)
+        self.PreConvert.start()
 
 if __name__ == '__main__':
 
