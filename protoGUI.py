@@ -15,6 +15,7 @@ class Main(QWidget):
 
 
     def initUI(self):
+
        self.OpenButton = QPushButton('Open Folder')
        self.OpenButton.clicked.connect(self.OpenFolder)
 
@@ -44,7 +45,8 @@ class Main(QWidget):
        self.show()
 
     def OpenFolder(self):
-       self.fname = QFileDialog.getExistingDirectory(self, 'Select Folder', '/home/tomcat/PycharmProjects/photo-lazy')
+       home = os.getenv('HOME')
+       self.fname = QFileDialog.getExistingDirectory(self, 'Select Folder', home)
 
     def PreConvert(self):
         if self.CheckBoxInst.isChecked():
@@ -58,27 +60,30 @@ class Main(QWidget):
     def ConvertInst(self):
         width = 612
         height = 612
-        Prefix = 'Inst_'
-        if not os.path.exists(Prefix):
-            os.mkdir(Prefix, mode=0o755)
-        for self.fname in glob.glob('*.jpg'):
-            with Image(filename=self.fname) as original:
+        prefix = 'Inst_'
+        os.chdir(self.fname)
+        if not os.path.exists(prefix):
+            os.mkdir(prefix, mode=0o755)
+        for image in glob.glob('*.jpg'):
+            with Image(filename=image) as original:
                 original.transform(resize="%dx%d>" % (width, height))
-                os.chdir(Prefix)
-                original.save(filename=self.fname)
+                os.chdir(prefix)
+                original.save(filename=image)
                 os.chdir('..')
 
     def ConvertVK(self):
         width = 800
         height = 500
-        Prefix = 'VK_'
-        if not os.path.exists(Prefix):
-            os.mkdir(Prefix, mode=0o755)
-        for self.fname in glob.glob('*.jpg'):
-            with Image(filename=self.fname) as original:
+        prefix = 'VK_'
+        print(self.fname)
+        os.chdir(self.fname)
+        if not os.path.exists(prefix):
+            os.mkdir(prefix, mode=0o755)
+        for image in glob.glob('*.jpg'):
+            with Image(filename=image) as original:
                 original.transform(resize="%dx%d>" % (width, height))
-                os.chdir(Prefix)
-                original.save(filename=self.fname)
+                os.chdir(prefix)
+                original.save(filename=image)
                 os.chdir('..')
 
 if __name__ == '__main__':
