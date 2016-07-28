@@ -1,8 +1,10 @@
 __author__ = 'tomcat'
 import sys
 from PyQt5.QtWidgets import (QWidget, QLabel,
-    QLineEdit, QAction, QMenuBar, QMessageBox, qApp, QPushButton, QStatusBar, QGridLayout, QFileDialog, QApplication)
-from PyQt5.QtGui import QIcon
+    QLineEdit, QAction, QMenuBar, QMessageBox, QPushButton, QStatusBar, QFileDialog, QCheckBox, QHBoxLayout, QVBoxLayout, QMainWindow, QApplication)
+from wand.image import Image
+import os
+import glob
 
 class Main(QWidget):
 
@@ -13,30 +15,71 @@ class Main(QWidget):
 
 
     def initUI(self):
-       self.statusBar = QStatusBar()
-
        self.OpenButton = QPushButton('Open Folder')
        self.OpenButton.clicked.connect(self.OpenFolder)
 
-       grid = QGridLayout()
-       grid.setSpacing(10)
+       self.ConvertButton = QPushButton('Convert')
+       self.ConvertButton.clicked.connect(self.PreConvert)
 
-       grid.addWidget(self.OpenButton, 1, 0)
-#       grid.addWidget(titleEdit, 1, 1)
+       self.CheckBoxInst = QCheckBox('Instagram', self)
+       self.CheckBoxVK = QCheckBox('VK.com', self)
 
- #      grid.addWidget(author, 2, 0)
-  #     grid.addWidget(authorEdit, 2, 1)
+       self.statusBar = QStatusBar(self)
+       self.statusBar.showMessage('Ready')
 
-   #    grid.addWidget(review, 3, 0)
-    #   grid.addWidget(reviewEdit, 3, 1, 5, 1)
+       HBox = QHBoxLayout()
+       HBox.addWidget(self.OpenButton)
+       HBox.addWidget(self.CheckBoxInst)
+       HBox.addWidget(self.CheckBoxVK)
 
-       self.setLayout(grid)
+       VBox = QVBoxLayout()
+       VBox.addLayout(HBox)
+       VBox.addWidget(self.ConvertButton)
+#       VBox.addWidget(self.statusBar)
+
+       self.setLayout(VBox)
 
        self.setGeometry(500, 500, 500, 500)
        self.setWindowTitle('protoGUI')
        self.show()
+
     def OpenFolder(self):
-       fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
+       self.fname = QFileDialog.getExistingDirectory(self, 'Select Folder', '/home/tomcat/PycharmProjects/photo-lazy')
+
+    def PreConvert(self):
+        if self.CheckBoxInst.isChecked():
+            self.ConvertInst()
+        if self.CheckBoxVK.isChecked():
+            self.ConvertVK()
+        if self.CheckBoxInst.isChecked()*self.CheckBoxVK.isChecked():
+            self.ConvertInst()
+            self.ConvertVK()
+
+    def ConvertInst(self):
+        width = 612
+        height = 612
+        Prefix = 'Inst_'
+        if not os.path.exists(Prefix):
+            os.mkdir(Prefix, mode=0o755)
+        for self.fname in glob.glob('*.jpg'):
+            with Image(filename=self.fname) as original:
+                original.transform(resize="%dx%d>" % (width, height))
+                os.chdir(Prefix)
+                original.save(filename=self.fname)
+                os.chdir('..')
+
+    def ConvertVK(self):
+        width = 800
+        height = 500
+        Prefix = 'VK_'
+        if not os.path.exists(Prefix):
+            os.mkdir(Prefix, mode=0o755)
+        for self.fname in glob.glob('*.jpg'):
+            with Image(filename=self.fname) as original:
+                original.transform(resize="%dx%d>" % (width, height))
+                os.chdir(Prefix)
+                original.save(filename=self.fname)
+                os.chdir('..')
 
 if __name__ == '__main__':
 
