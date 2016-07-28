@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (QWidget, QLabel,
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from wand.image import Image
+import os
 import glob
 
 class Main(QWidget):
@@ -25,9 +26,7 @@ class Main(QWidget):
        self.ConvertButton.clicked.connect(self.PreConvert)
 
        self.CheckBoxInst = QCheckBox('Instagram', self)
-       #self.CheckBoxInst.checkState.connect(self.InstagramWH)
        self.CheckBoxVK = QCheckBox('VK.com', self)
-       #self.CheckBoxVK.stateChanged.connect(self.VKWH)
 
        HBox = QHBoxLayout()
        HBox.addWidget(self.OpenButton)
@@ -49,53 +48,38 @@ class Main(QWidget):
 
     def PreConvert(self):
         if self.CheckBoxInst.isChecked():
-            width = 612
-            height = 612
-            Prefix = 'Inst_'
-            self.Convert(width, height, Prefix)
-            return
-        elif self.CheckBoxVK.isChecked():
-            width = 800
-            height = 500
-            Prefix = 'VK_'
-            self.Convert(width, height, Prefix)
-        else:
-           return
+            self.ConvertInst()
+        if self.CheckBoxVK.isChecked():
+            self.ConvertVK()
+        if self.CheckBoxInst.isChecked()*self.CheckBoxVK.isChecked():
+            self.ConvertInst()
+            self.ConvertVK()
 
-    def Convert(self, width, height, Prefix):
+    def ConvertInst(self):
+        width = 612
+        height = 612
+        Prefix = 'Inst_'
+        if not os.path.exists(Prefix):
+            os.mkdir(Prefix, mode=0o755)
         for self.fname in glob.glob('*.jpg'):
             with Image(filename=self.fname) as original:
                 original.transform(resize="%dx%d>" % (width, height))
-                #            outerImg.format = original.format.lower()
-                #            outerImg.composite(original, left=int((width - original.width)/2), top=int((height-original.height)/2))
-                #            original.resize(height=612, width=612)
-                original.save(filename=Prefix + self.fname)
+                os.chdir(Prefix)
+                original.save(filename=self.fname)
+                os.chdir('..')
 
-#    def InstagramWH(self, state):
-#        if state == Qt.Checked:
-#            global width
-#            width = 612
-#            global height
-#            height = 612
-#            global Prefix
-#            Prefix = 'Inst_'
-#            self.ConvertButton.clicked.connect(self.Convert)
-#            return
-#        else:
-#            return
-
- #   def VKWH(self, state):
- #       if state == Qt.Checked:
- #           global width
- #           width = 800
- #           global height
- #           height = 500
- #           global Prefix
- #           Prefix = 'VK_'
- #           self.ConvertButton.clicked.connect(self.Convert)
- #           return
- #       else:
- #           return
+    def ConvertVK(self):
+        width = 800
+        height = 500
+        Prefix = 'VK_'
+        if not os.path.exists(Prefix):
+            os.mkdir(Prefix, mode=0o755)
+        for self.fname in glob.glob('*.jpg'):
+            with Image(filename=self.fname) as original:
+                original.transform(resize="%dx%d>" % (width, height))
+                os.chdir(Prefix)
+                original.save(filename=self.fname)
+                os.chdir('..')
 
 if __name__ == '__main__':
 

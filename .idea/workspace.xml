@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="882ad206-0f68-4572-8f9a-dfb3f22d56a5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Wand test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protoGUI.py" afterPath="$PROJECT_DIR$/protoGUI.py" />
     </list>
@@ -29,8 +26,8 @@
       <file leaf-file-name="protoGUI.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protoGUI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1440">
-              <caret line="96" column="14" selection-start-line="96" selection-start-column="14" selection-end-line="96" selection-end-column="14" />
+            <state relative-caret-position="428">
+              <caret line="80" column="39" selection-start-line="80" selection-start-column="39" selection-end-line="80" selection-end-column="39" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
               </folding>
@@ -76,6 +73,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Wand test.py" />
+        <option value="$PROJECT_DIR$/eliftest.py" />
         <option value="$PROJECT_DIR$/protoGUI.py" />
       </list>
     </option>
@@ -194,6 +192,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="photo-lazy" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Wand test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="eliftest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="photo-lazy" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/eliftest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -332,14 +347,16 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.protoGUI" />
       <item index="1" class="java.lang.String" itemvalue="Python.Wand test" />
+      <item index="2" class="java.lang.String" itemvalue="Python.eliftest" />
     </list>
     <recent_temporary>
-      <list size="2">
+      <list size="3">
         <item index="0" class="java.lang.String" itemvalue="Python.protoGUI" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Wand test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.eliftest" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Wand test" />
       </list>
     </recent_temporary>
   </component>
@@ -378,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1469693449582</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added convertion to Instagram and VK&#10;Need to solve both checkbox state true">
+      <created>1469710789833</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1469710789833</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -421,7 +445,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="base" />
     <MESSAGE value="GUI beta prototype. Box Layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="GUI beta prototype. Box Layout" />
+    <MESSAGE value="Added convertion to Instagram and VK&#10;Need to solve both checkbox state true" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added convertion to Instagram and VK&#10;Need to solve both checkbox state true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -459,10 +484,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/eliftest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/protoGUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="96" column="14" selection-start-line="96" selection-start-column="14" selection-end-line="96" selection-end-column="14" />
+        <state relative-caret-position="428">
+          <caret line="80" column="39" selection-start-line="80" selection-start-column="39" selection-end-line="80" selection-end-column="39" />
           <folding>
             <element signature="e#22#32#0" expanded="true" />
           </folding>
