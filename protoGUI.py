@@ -1,9 +1,7 @@
 __author__ = 'tomcat'
 import sys
 from PyQt5.QtWidgets import (QWidget, QLabel,
-    QLineEdit, QAction, QMenuBar, QMessageBox, QPushButton, QStatusBar, QFileDialog, QCheckBox, QHBoxLayout, QVBoxLayout, QApplication)
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
+    QLineEdit, QAction, QMenuBar, QMessageBox, QPushButton, QStatusBar, QFileDialog, QCheckBox, QHBoxLayout, QVBoxLayout, QMainWindow, QApplication)
 from wand.image import Image
 import os
 import glob
@@ -17,8 +15,6 @@ class Main(QWidget):
 
 
     def initUI(self):
-       self.statusBar = QStatusBar()
-
        self.OpenButton = QPushButton('Open Folder')
        self.OpenButton.clicked.connect(self.OpenFolder)
 
@@ -28,6 +24,9 @@ class Main(QWidget):
        self.CheckBoxInst = QCheckBox('Instagram', self)
        self.CheckBoxVK = QCheckBox('VK.com', self)
 
+       self.statusBar = QStatusBar(self)
+       self.statusBar.showMessage('Ready')
+
        HBox = QHBoxLayout()
        HBox.addWidget(self.OpenButton)
        HBox.addWidget(self.CheckBoxInst)
@@ -36,6 +35,7 @@ class Main(QWidget):
        VBox = QVBoxLayout()
        VBox.addLayout(HBox)
        VBox.addWidget(self.ConvertButton)
+#       VBox.addWidget(self.statusBar)
 
        self.setLayout(VBox)
 
