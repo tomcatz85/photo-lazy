@@ -1,7 +1,7 @@
 __author__ = 'tomcat'
 import sys
 from PyQt5.QtWidgets import (QWidget, QLabel,
-    QLineEdit, QAction, QMenuBar, QMessageBox, qApp, QPushButton, QStatusBar, QGridLayout, QFileDialog, QApplication)
+    QLineEdit, QAction, QMenuBar, QMessageBox, QPushButton, QStatusBar, QFileDialog, QCheckBox, QHBoxLayout, QVBoxLayout, QApplication)
 from PyQt5.QtGui import QIcon
 
 class Main(QWidget):
@@ -18,25 +18,33 @@ class Main(QWidget):
        self.OpenButton = QPushButton('Open Folder')
        self.OpenButton.clicked.connect(self.OpenFolder)
 
-       grid = QGridLayout()
-       grid.setSpacing(10)
+       self.ConvertButton = QPushButton('Convert')
+       self.ConvertButton.clicked.connect(self.Convert)
 
-       grid.addWidget(self.OpenButton, 1, 0)
-#       grid.addWidget(titleEdit, 1, 1)
+       self.CheckBoxInst = QCheckBox('Instagram', self)
+       self.CheckBoxVK = QCheckBox('VK.com', self)
 
- #      grid.addWidget(author, 2, 0)
-  #     grid.addWidget(authorEdit, 2, 1)
+       HBox = QHBoxLayout()
+       HBox.addStretch(0)
+       HBox.addWidget(self.OpenButton)
+       HBox.addWidget(self.CheckBoxInst)
+       HBox.addWidget(self.CheckBoxVK)
 
-   #    grid.addWidget(review, 3, 0)
-    #   grid.addWidget(reviewEdit, 3, 1, 5, 1)
+       VBox = QVBoxLayout()
+       VBox.addStretch(0)
+       VBox.addLayout(HBox)
+       VBox.addWidget(self.ConvertButton)
 
-       self.setLayout(grid)
+       self.setLayout(VBox)
 
        self.setGeometry(500, 500, 500, 500)
        self.setWindowTitle('protoGUI')
        self.show()
     def OpenFolder(self):
        fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
+
+    def Convert(self):
+        f=1
 
 if __name__ == '__main__':
 
