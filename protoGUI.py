@@ -25,10 +25,10 @@ class Main(QWidget):
        self.CheckBoxInst = QCheckBox('Instagram', self)
        self.CheckBoxVK = QCheckBox('VK.com', self)
 
-       self.progressBar = QProgressBar(self)
-       self.progressBar.setRange(0, 1)
-       self.statusBar = QStatusBar(self)
-       self.statusBar.addWidget(self.progressBar)
+#       self.progressBar = QProgressBar(self)
+#       self.progressBar.setRange(0, 1)
+#       self.statusBar = QStatusBar(self)
+#       self.statusBar.addWidget(self.progressBar)
        #self.statusBar.showMessage('Ready')
 
        HBox = QHBoxLayout()
@@ -55,9 +55,6 @@ class Main(QWidget):
             self.ConvertInst()
         if self.CheckBoxVK.isChecked():
             self.ConvertVK()
-        if self.CheckBoxInst.isChecked()*self.CheckBoxVK.isChecked():
-            self.ConvertInst()
-            self.ConvertVK()
 
     def ConvertInst(self):
         width = 612
@@ -72,12 +69,13 @@ class Main(QWidget):
                 os.chdir(prefix)
                 original.save(filename=image)
                 os.chdir('..')
+        self.Message()
+
 
     def ConvertVK(self):
         width = 800
         height = 500
         prefix = 'VK_'
-        print(self.fname)
         os.chdir(self.fname)
         if not os.path.exists(prefix):
             os.mkdir(prefix, mode=0o755)
@@ -87,10 +85,14 @@ class Main(QWidget):
                 os.chdir(prefix)
                 original.save(filename=image)
                 os.chdir('..')
+        self.Message()
 
-    def onStart(self):
-        self.progressBar.setRange(0, 0)
-        self.PreConvert.start()
+    def Message(self):
+        QMessageBox.information(self, 'Finish', "Job's done", QMessageBox.Ok)
+
+#    def onStart(self):
+#        self.progressBar.setRange(0, 0)
+#        self.PreConvert.start()
 
 if __name__ == '__main__':
 
